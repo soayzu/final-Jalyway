@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -22,6 +23,7 @@ public class TasksResource {
      * question 4 (10%):
      * add DI for taskService
      */
+    @Autowired
     private TaskService taskService=null;
 
     public void setTaskService(TaskService taskService) {
@@ -43,7 +45,9 @@ public class TasksResource {
        for example, webapi/tasks/subject/abc
        should connect to this web service, and abc is the subject value
      */
-    public List<Task> getTasksBySubject(String subject){
+    @GET
+    @Path("subject/{subject}")
+    public List<Task> getTasksBySubject(@PathParam("subject") String subject){
         return taskService.getTasksBySubject(subject);
     }
     

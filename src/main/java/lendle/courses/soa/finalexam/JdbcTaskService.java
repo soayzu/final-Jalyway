@@ -8,6 +8,7 @@ package lendle.courses.soa.finalexam;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class JdbcTaskService implements TaskService {
      * question 2 (10%):
      * add DI for jdbcTemplate
      */
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -65,6 +67,8 @@ public class JdbcTaskService implements TaskService {
         //use jdbcTemplate to update the given task
         
         //////////////////////////////////////////////
+        jdbcTemplate.update("update Task set dueDate=?, subject=? , content=?where id=?",
+                task.getDueDate(),task.getSubject(), task.getContent(),task.getId());
     }
 
     @Override
